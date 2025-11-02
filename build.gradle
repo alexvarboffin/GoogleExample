@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('C:/Users/combo/Documents/lib/javafx-sdk-17.0.0.1/lib/javafx.base.jar')
+    implementation files('C:/Users/combo/Documents/lib/javafx-sdk-17.0.0.1/lib/javafx.controls.jar')
+    implementation files('C:/Users/combo/Documents/lib/javafx-sdk-17.0.0.1/lib/javafx.fxml.jar')
+    implementation files('C:/Users/combo/Documents/lib/javafx-sdk-17.0.0.1/lib/javafx.graphics.jar')
+
+//    compile fileTree(dir: 'libs', include: '*.jar')
+    implementation files('lib/gson-2.8.5.jar', 'lib/gson-2.8.5.jar')
+
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//
+    implementation group: 'com.google.api-client', name: 'google-api-client', version: '1.25.0'
+    implementation group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev212-1.25.0'
+
+    implementation group: 'com.google.apis', name: 'google-api-services-youtubeAnalytics', version: 'v1-rev14-1.13.2-beta'
+    //compile group: 'com.google.apis', name: 'google-api-services-youtubereporting', version: 'v1-rev1-1.20.0'
+
+    implementation("com.google.oauth-client:google-oauth-client-jetty:1.25.0") {
+        //exclude group: 'org.mortbay.jetty', module: 'servlet-api'
+    }
+
+    implementation group: 'com.google.http-client', name: 'google-http-client-jackson2', version: '1.25.0'
+
+    implementation group: 'com.google.collections', name: 'google-collections', version: '1.0'
+
+    implementation 'com.google.apis:google-api-services-blogger:v3-rev62-1.25.0'
+
+    implementation 'org.codehaus.jackson:jackson-core-asl:1.9.2'
+    implementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.2'
+
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.19.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+compileJava.options.encoding = 'UTF-8'
+kotlin {
+    jvmToolchain(17)
+}
