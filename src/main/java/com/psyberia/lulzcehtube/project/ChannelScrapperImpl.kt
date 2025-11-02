@@ -865,11 +865,10 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
     var properties: Properties? = null
 
     private fun listView(): Node {
-        val tr = FXCollections.observableArrayList(*Config.cfgs /*"1", "2", "3"*/)
+        val tr = FXCollections.observableArrayList(*Config.cfgs)
         listView = ListView(tr)
-
-        listView!!.setPrefSize(240.0, 400.0)
-        m = listView!!.selectionModel
+        listView.setPrefSize(240.0, 400.0)
+        m = listView.selectionModel
         m.selectedItemProperty().addListener { observable: ObservableValue<out CFG>, oldValue: CFG?, newValue: CFG ->
             this.config_position = m.selectedIndex
             cfg = newValue
@@ -878,30 +877,21 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
 
                 properties = Properties()
                 //InputStream in = Search.class.getResourceAsStream("/" + PROPERTIES_FILENAME);
-                properties!!.load(
-                    FileInputStream(
-                        (cfg.client_secret.replace(
-                            "client_secret.json", "youtube.properties"
-                        ))
-                    )
-                )
-
+                properties!!.load(FileInputStream((cfg.client_secret.replace("client_secret.json", "youtube.properties"))))
 
                 val credential = authorize2(
                     Config.scopes,
-                    cfg!!.credentialDataStoreName + "amyrate",
+                    cfg.credentialDataStoreName + "amyrate",
                     OAUTH_CRE,
-                    cfg!!.client_secret
+                    cfg.client_secret
                 )
-
-
                 //Credential credential = Auth.authorize(Config.scopes, cfg.credentialDataStoreName + "myrate");
                 youtube = YouTube.Builder(
                     Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential /*
                     new HttpRequestInitializer() {
                 public void initialize(HttpRequest request) throws IOException {}}*/
                 )
-                    .setApplicationName(aaaaaaaaaaaaaaaa + cfg!!.credentialDataStoreName)
+                    .setApplicationName(aaaaaaaaaaaaaaaa + cfg.credentialDataStoreName)
                     .build()
             } catch (e: Exception) {
                 println("@@@@@@@@@@@@@@@" + e.message)
