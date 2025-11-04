@@ -18,6 +18,7 @@ import com.psyberia.Workspace.PROJECT_ISLAMICQUOTES
 import com.psyberia.Workspace.storage
 import com.psyberia.lulzcehtube.project.ChannelScrapperImpl
 import com.psyberia.outh2.YoutubeUtils.generateDescriptionFromTemplate
+import com.psyberia.utils.limitTagsTo500Chars
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
@@ -39,10 +40,10 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
         }
 
 
-        val b0 = Button("Upload Video")
-        b0.onAction = EventHandler { event: ActionEvent? ->
+        val button1 = Button("Upload Video...")
+        button1.onAction = EventHandler { event: ActionEvent? ->
             val m0 = CfgObj(
-                261,
+                //261,
                 PROJECT_CHRISTIAN_QUOTES_EN + "\\src\\main\\assets\\titles.txt",
                 PROJECT_CHRISTIAN_QUOTES_EN + "\\src\\main\\assets\\tags.txt",
                 Workspace.templates.absolutePath,
@@ -51,7 +52,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
             )
             uploadVideo(m0, Config.cfgs[5])
             val muslimConf = CfgObj(
-                87,
+                //87,
                 PROJECT_ISLAMICQUOTES + "\\src\\main\\assets\\titles.txt",
                 PROJECT_ISLAMICQUOTES + "\\src\\main\\assets\\tags.txt",
 
@@ -67,7 +68,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
             println("=================================================")
         }
         center = button
-        bottom = b0
+        bottom = button1
     }
 
 
@@ -166,7 +167,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
             // Вставка видео
             val videoInsert = youtube.videos().insert("snippet,statistics,status", videoMetadata, mediaContent)
-            send(videoInsert, file)
+            send(videoInsert, file, cfg)
         } catch (e: GoogleJsonResponseException) {
             println("Throwable: " + e.message)
             e.printStackTrace()
@@ -180,7 +181,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
     }
 
     @Throws(IOException::class)
-    private fun send(videoInsert: YouTube.Videos.Insert, file: File) {
+    private fun send(videoInsert: YouTube.Videos.Insert, file: File, cfg: CFG) {
         // Настройка загрузчика
         val uploader = videoInsert.mediaHttpUploader
         uploader.setDirectUploadEnabled(false)
@@ -204,10 +205,12 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
         val returnedVideo = videoInsert.execute()
 
         // Вывод информации о загруженном видео
-        println("\n================== Returned Video ==================\n" + "  - https://www.youtube.com/watch?v=" + returnedVideo.id)
+        println("\n================== Returned Video ==================")
+        println("@@@@@@@$cfg")
+        println("  - https://www.youtube.com/watch?v=${returnedVideo.id}")
         println(returnedVideo.snippet.title)
         println("  - Tags: " + returnedVideo.snippet.tags)
-        println("  - Privacy Status: " + returnedVideo.status.privacyStatus + "  - View Count: " + returnedVideo.statistics.viewCount)
+        println("[" + returnedVideo.status.privacyStatus + "]  - View Count: [${returnedVideo.statistics.viewCount}]")
     }
 
 
@@ -217,7 +220,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
             val list = storage.listFiles { pathname: File -> pathname.name.endsWith(".mp4") }
 
 
-            if (list!!.size == 0) {
+            if (list!!.isEmpty()) {
                 println("STORAGE IS EMPTY")
                 return
             }
@@ -265,7 +268,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
             //ЛИМИТ ВСЕХ ТЕГОВ 500 символов, как быть
             val tags =
                 TextUtilz.readAllLines( //"D:\\walhalla\\TTDwn\\AndroidStudioSourceCode\\app\\src\\main\\assets\\tags.txt"
-                    PROJECT_CHRISTIAN_QUOTES_EN + "\\src\\main\\assets\\tags.txt"
+                    "$PROJECT_CHRISTIAN_QUOTES_EN\\src\\main\\assets\\tags.txt"
 
                 )
 //            List<String> tags0 = new ArrayList<>();
@@ -307,7 +310,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
             // Вставка видео
             val videoInsert = youtube0!!.videos().insert("snippet,statistics,status", videoMetadata, mediaContent)
-            send(videoInsert, file)
+            send(videoInsert, file, scrapper.cfg)
         } catch (e: GoogleJsonResponseException) {
             println(
                 ("GoogleJsonResponseException code: " + e.details.code + " : "
@@ -325,21 +328,6 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
 
         val SCOPES: List<String> = listOf("https://www.googleapis.com/auth/youtube.upload")
-        fun limitTagsTo500Chars(tags: List<String>): List<String> {
-            val processedTags: MutableList<String> = ArrayList()
-            val allTags = StringBuilder()
 
-            for (tag in tags) {
-                val cleanTag = tag.replace("#", "").trim { it <= ' ' }  // Убираем символы "#", пробелы
-                if (allTags.length + cleanTag.length + 1 > 500) {
-                    // Если добавление следующего тега превышает лимит, прекращаем добавление
-                    break
-                }
-                allTags.append(cleanTag).append(" ") // Добавляем тег и пробел
-                processedTags.add(cleanTag)
-            }
-
-            return processedTags
-        }
     }
 }

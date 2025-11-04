@@ -862,7 +862,6 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
         return channel_id!!.text.trim { it <= ' ' }
     }
 
-    var properties: Properties? = null
 
     private fun listView(): Node {
         val tr = FXCollections.observableArrayList(*Config.cfgs)
@@ -872,19 +871,12 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
         m.selectedItemProperty().addListener { observable: ObservableValue<out CFG>, oldValue: CFG?, newValue: CFG ->
             this.config_position = m.selectedIndex
             cfg = newValue
+
+        //**123
             try {
-                // Read the developer key from the properties file.
 
-                properties = Properties()
-                //InputStream in = Search.class.getResourceAsStream("/" + PROPERTIES_FILENAME);
-                properties!!.load(FileInputStream((cfg.client_secret.replace("client_secret.json", "youtube.properties"))))
-
-                val credential = authorize2(
-                    Config.scopes,
-                    cfg.credentialDataStoreName + "amyrate",
-                    OAUTH_CRE,
-                    cfg.client_secret
-                )
+                val credential =
+                    authorize2(Config.scopes, cfg.credentialDataStoreName + "amyrate", OAUTH_CRE, cfg.client_secret)
                 //Credential credential = Auth.authorize(Config.scopes, cfg.credentialDataStoreName + "myrate");
                 youtube = YouTube.Builder(
                     Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential /*
@@ -896,6 +888,8 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
             } catch (e: Exception) {
                 println("@@@@@@@@@@@@@@@" + e.message)
             }
+            //**123
+
         }
         //m.select(0);
         return listView
@@ -1009,7 +1003,14 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
             // Set your developer key from the {{ Google Cloud Console }} for
             // non-authenticated requests. See:
             // {{ https://cloud.google.com/console }}
-            val apiKey = properties!!.getProperty("youtube.apikey")
+
+            // Read the developer key from the properties file.
+            val properties = Properties()
+            //InputStream in = Search.class.getResourceAsStream("/" + PROPERTIES_FILENAME);
+            val g = (cfg.client_secret.replace("client_secret.json", "youtube.properties"))
+            println("@@@@@@@@@@@@@@@@@$g ${cfg.client_secret}")
+            properties.load(FileInputStream(g))
+            val apiKey = properties.getProperty("youtube.apikey")
             search.setKey(apiKey)
             search.setQ(keyword)
 
@@ -1051,9 +1052,6 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
     }
 
 
-
-
-
     companion object {
         private const val NUMBER_OF_VIDEOS_RETURNED: Long = 50
 
@@ -1073,9 +1071,6 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
 
         //List<Video> uploaded_video_arr;
         private const val DONOR_CHANNEL_PLAYLIST = "PLv6zdiyWRSORYWSVmvfFH0wwm9J23hZIM"
-
-
-
 
 
         //List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");

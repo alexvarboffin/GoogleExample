@@ -74,7 +74,7 @@ object MyUploads {
             // list that contains videos uploaded to the channel.
 
             val channelRequest: com.google.api.services.youtube.YouTube.Channels.List =
-                youtube.channels().list("contentDetails")
+                youtube!!.channels().list("contentDetails")
 
 
             channelRequest.setMine(true)
@@ -90,7 +90,7 @@ object MyUploads {
                 // The user's default channel is the first item in the list.
                 // Extract the playlist ID for the channel's videos from the
                 // API response.
-                val uploadPlaylistId: String = channelsList[0].getContentDetails().getRelatedPlaylists().getUploads()
+                val uploadPlaylistId: String = channelsList[0].contentDetails.relatedPlaylists.uploads
 
 
                 println("#####$uploadPlaylistId#####")
@@ -174,9 +174,9 @@ object MyUploads {
 
 
             //================================================================
-            val id: String = playlistItem.getContentDetails().getVideoId()
-            val title: String = playlistItem.getSnippet().getTitle()
-            var description: String = playlistItem.getSnippet().getDescription().replace("\n".toRegex(), "<br/>")
+            val id: String = playlistItem.contentDetails.videoId
+            val title: String = playlistItem.snippet.title
+            var description: String = playlistItem.snippet.description.replace("\n".toRegex(), "<br/>")
             description = fixUrl(description)
 
             //================================================================
@@ -218,8 +218,8 @@ object MyUploads {
 
 //----------------------------------------------------------------------------------------------------
             content = com.google.api.services.blogger.model.Post()
-            content.setTitle(title)
-            content.setContent(
+            content!!.setTitle(title)
+            content!!.setContent(
                 ("""<div style="text-align: center;">
 <br /></div>
 <div style="text-align: center;">
@@ -236,8 +236,8 @@ $description</div>""")
                 com.google.api.services.blogger.model.Post.Author()
             author.setDisplayName("][asper")
 
-            content.setAuthor(author)
-            content.setCustomMetaData("00000000000000000000000000000,888888888888")
+            content!!.setAuthor(author)
+            content!!.setCustomMetaData("00000000000000000000000000000,888888888888")
 
 
             val images: MutableList<Images> = ArrayList<Images>()
@@ -249,12 +249,12 @@ $description</div>""")
 
             val img2: Images = Images()
             if (null != thubnails) {
-                img2.setUrl(thubnails.getHigh().getUrl())
+                img2.setUrl(thubnails.high.url)
                 images.add(img2)
             }
 
             images.add(img1)
-            content.setImages(images)
+            content!!.setImages(images)
 
 
             //List<String> labels = new ArrayList<>();
@@ -262,7 +262,7 @@ $description</div>""")
             //Ярлыки
             //labels.add("bbbbbbbbbbbbbbbb");
             //labels.add("cccccccccccccccccccccccc");
-            content.setLabels(info.getTags())
+            content!!.setLabels(info.tags)
 
 
             //-------------------------------------------------------------------------------------------
