@@ -871,25 +871,38 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
         m.selectedItemProperty().addListener { observable: ObservableValue<out CFG>, oldValue: CFG?, newValue: CFG ->
             this.config_position = m.selectedIndex
             cfg = newValue
+        }
 
-        //**123
-            try {
-
-                val credential =
-                    authorize2(Config.scopes, cfg.credentialDataStoreName + "amyrate", OAUTH_CRE, cfg.client_secret)
-                //Credential credential = Auth.authorize(Config.scopes, cfg.credentialDataStoreName + "myrate");
-                youtube = YouTube.Builder(
-                    Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential /*
-                    new HttpRequestInitializer() {
-                public void initialize(HttpRequest request) throws IOException {}}*/
-                )
-                    .setApplicationName(aaaaaaaaaaaaaaaa + cfg.credentialDataStoreName)
-                    .build()
-            } catch (e: Exception) {
-                println("@@@@@@@@@@@@@@@" + e.message)
+        listView.setCellFactory {
+            object : ListCell<CFG>() {
+                override fun updateItem(item: CFG?, empty: Boolean) {
+                    super.updateItem(item, empty)
+                    if (empty || item == null) {
+                        text = null
+                        contextMenu = null
+                    } else {
+                        text = item.toString()
+                        val contextMenu = ContextMenu()
+                        val menuItem = MenuItem("Authorize")
+                        menuItem.onAction = EventHandler {
+                            try {
+                                val credential =
+                                    authorize2(Config.scopes, item.credentialDataStoreName + "amyrate", OAUTH_CRE, item.client_secret)
+                                youtube = YouTube.Builder(
+                                    Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential
+                                )
+                                    .setApplicationName(aaaaaaaaaaaaaaaa + item.credentialDataStoreName)
+                                    .build()
+                                updateStatus("Authorized as " + item.projectName)
+                            } catch (e: Exception) {
+                                println("@@@@@@@@@@@@@@@" + e.message)
+                            }
+                        }
+                        contextMenu.items.add(menuItem)
+                        setContextMenu(contextMenu)
+                    }
+                }
             }
-            //**123
-
         }
         //m.select(0);
         return listView

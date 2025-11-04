@@ -36,7 +36,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
     init {
         val button = Button("Auth single Account")
         button.onAction = EventHandler { event: ActionEvent? ->
-            uploadVideo()
+            uploadVideo(scrapper.cfg)
         }
 
 
@@ -214,7 +214,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
     }
 
 
-    private fun uploadVideo() {
+    private fun uploadVideo(cfg: CFG) {
         try {
             val storage = File(storage, "alexvarboffin@gmail.com\\MP4")
             val list = storage.listFiles { pathname: File -> pathname.name.endsWith(".mp4") }
@@ -283,7 +283,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
             //System.out.println(title + " | " + tags0 + " | " + description);
             // Авторизация через OAuth2
-            val credential = Auth.authorize2(SCOPES, scrapper.cfg.credentialDataStoreName + "amyrate", Config.OAUTH_CRE, scrapper.cfg.client_secret
+            val credential = Auth.authorize2(SCOPES, cfg.credentialDataStoreName + "amyrate", Config.OAUTH_CRE, cfg.client_secret
             )
 
             // Создание объекта YouTube для отправки запросов к API
@@ -310,7 +310,7 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
             // Вставка видео
             val videoInsert = youtube0!!.videos().insert("snippet,statistics,status", videoMetadata, mediaContent)
-            send(videoInsert, file, scrapper.cfg)
+            send(videoInsert, file, cfg)
         } catch (e: GoogleJsonResponseException) {
             println(
                 ("GoogleJsonResponseException code: " + e.details.code + " : "
