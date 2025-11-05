@@ -6,6 +6,7 @@ import com.google.api.client.googleapis.media.MediaHttpUploader.UploadState
 import com.google.api.client.http.InputStreamContent
 import com.google.api.services.CFG
 import com.google.api.services.samples.Config
+import com.google.api.services.samples.Config.cfgs
 
 import com.google.api.services.samples.youtube.cmdline.Auth
 import com.google.api.services.youtube.YouTube
@@ -42,30 +43,44 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
 
         val button1 = Button("Upload Video...")
         button1.onAction = EventHandler { event: ActionEvent? ->
-            val m0 = CfgObj(
+            val christianConf = CfgObj(
                 //261,
                 PROJECT_CHRISTIAN_QUOTES_EN + "\\src\\main\\assets\\titles.txt",
                 PROJECT_CHRISTIAN_QUOTES_EN + "\\src\\main\\assets\\tags.txt",
                 Workspace.templates.absolutePath,
-                File(Workspace.storage, "alexvarboffin@gmail.com\\MP4").absolutePath,
+                File(storage, "alexvarboffin@gmail.com\\MP4").absolutePath,
                 sql = File(Workspace.database, "christian_en.sqlite").absolutePath
             )
-            uploadVideo(m0, Config.cfgs[5])
+
             val muslimConf = CfgObj(
                 //87,
                 PROJECT_ISLAMICQUOTES + "\\src\\main\\assets\\titles.txt",
                 PROJECT_ISLAMICQUOTES + "\\src\\main\\assets\\tags.txt",
 
                 "G:\\WORKSPACE\\mp4\\muslim",
-                File(Workspace.storage, "alexvarboffin@gmail.com\\MP4_islamicquotes").absolutePath,
+                File(storage, "alexvarboffin@gmail.com\\MP4_islamicquotes").absolutePath,
                 "C:\\Users\\combo\\Desktop\\ffmpeg\\database\\islamicquotes.sqlite"
             )
-            uploadVideo(muslimConf, Config.cfgs[4])
+
+            cfgs.forEachIndexed { index, cfg ->
+
+                when(index){
+
+                    0->uploadVideo(muslimConf, Config.cfgs[0])
+                    1->uploadVideo(christianConf, Config.cfgs[1])
+                    2->uploadVideo(christianConf, Config.cfgs[2])
+                    3->uploadVideo(christianConf, Config.cfgs[3])
 
 
-            uploadVideo(m0, Config.cfgs[6]) //danilabobrov82@gmail.com = Likee
-            uploadVideo(muslimConf, Config.cfgs[7]) //danilabobrov82@gmail.com = Inspiring Islamic Quotes
-            println("=================================================")
+                    4->uploadVideo(muslimConf, Config.cfgs[4])
+                    5->uploadVideo(christianConf, Config.cfgs[5])
+                    6->uploadVideo(christianConf, Config.cfgs[6]) //danilabobrov82@gmail.com = Likee
+                    7->uploadVideo(muslimConf, Config.cfgs[7]) //danilabobrov82@gmail.com = Inspiring Islamic Quotes
+                    8->uploadVideo(christianConf, Config.cfgs[8])
+                }
+
+            }
+            println("=================================================${cfgs.size}")
         }
         center = button
         bottom = button1

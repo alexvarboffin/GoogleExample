@@ -330,16 +330,16 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
         updateStatus("Всего видео: $total")
     }
 
+    val scopes: List<String> = Lists.newArrayList(
+        "https://www.googleapis.com/auth/youtube",
+        "https://www.googleapis.com/auth/youtube.force-ssl",
+        "https://www.googleapis.com/auth/youtubepartner",
+        "https://www.googleapis.com/auth/youtube.upload",
+        "https://www.googleapis.com/auth/youtube.readonly"
+    )
+
     @Throws(IOException::class)
     private fun makeYoutube(config_position: Int): YouTube {
-        val scopes: List<String> = Lists.newArrayList(
-            "https://www.googleapis.com/auth/youtube",
-            "https://www.googleapis.com/auth/youtube.force-ssl",
-            "https://www.googleapis.com/auth/youtubepartner",
-            "https://www.googleapis.com/auth/youtube.upload",
-            "https://www.googleapis.com/auth/youtube.readonly"
-        )
-
         val cfg = Config.cfgs[config_position]
         val credential = authorize2(
             scopes, cfg.credentialDataStoreName + "a",
@@ -784,8 +784,7 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
         // information the API response should return. The second argument
         // is the video resource that contains metadata about the new video.
         // The third argument is the actual video content.
-        val videoInsert = youtube!!.videos()
-            .insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent)
+        val videoInsert = youtube!!.videos().insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent)
 
         // Set the upload type and add an event listener.
         val uploader = videoInsert.mediaHttpUploader
@@ -1034,8 +1033,7 @@ class ChannelScrapperImpl : Application(), MediaHttpUploaderProgressListener, Ch
             // To increase efficiency, only retrieve the fields that the
             // application uses.
             search.setFields(
-                "items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url,snippet/channelId)" +
-                        ",pageInfo,nextPageToken,prevPageToken"
+                "items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url,snippet/channelId),pageInfo,nextPageToken,prevPageToken"
             )
 
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED)

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Christian Quotes",
+    "cfgObj": {
+      "titles": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_CHRISTIAN_QUOTES_EN\\src\\main\\assets\\titles.txt",
+      "tags": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_CHRISTIAN_QUOTES_EN\\src\\main\\assets\\tags.txt",
+      "templates": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\templates",
+      "outFolder": "C:\\src\\Java\\GoogleExample\\storage\\alexvarboffin@gmail.com\\MP4",
+      "sql": "C:\\src\\Java\\GoogleExample\\database\\christian_en.sqlite"
+    },
+    "cfgIndex": 5
+  },
+  {
+    "name": "Islamic Quotes",
+    "cfgObj": {
+      "titles": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_ISLAMICQUOTES\\src\\main\\assets\\titles.txt",
+      "tags": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_ISLAMICQUOTES\\src\\main\\assets\\tags.txt",
+      "templates": "G:\\WORKSPACE\\mp4\\muslim",
+      "outFolder": "C:\\src\\Java\\GoogleExample\\storage\\alexvarboffin@gmail.com\\MP4_islamicquotes",
+      "sql": "C:\\Users\\combo\\Desktop\\ffmpeg\\database\\islamicquotes.sqlite"
+    },
+    "cfgIndex": 4
+  },
+  {
+    "name": "Christian Quotes (Likee)",
+    "cfgObj": {
+      "titles": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_CHRISTIAN_QUOTES_EN\\src\\main\\assets\\titles.txt",
+      "tags": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_CHRISTIAN_QUOTES_EN\\src\\main\\assets\\tags.txt",
+      "templates": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\templates",
+      "outFolder": "C:\\src\\Java\\GoogleExample\\storage\\alexvarboffin@gmail.com\\MP4",
+      "sql": "C:\\src\\Java\\GoogleExample\\database\\christian_en.sqlite"
+    },
+    "cfgIndex": 6
+  },
+  {
+    "name": "Islamic Quotes (Inspiring)",
+    "cfgObj": {
+      "titles": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_ISLAMICQUOTES\\src\\main\\assets\\titles.txt",
+      "tags": "C:\\src\\Java\\GoogleExample\\src\\main\\java\\com\\psyberia\\Workspace\\PROJECT_ISLAMICQUOTES\\src\\main\\assets\\tags.txt",
+      "templates": "G:\\WORKSPACE\\mp4\\muslim",
+      "outFolder": "C:\\src\\Java\\GoogleExample\\storage\\alexvarboffin@gmail.com\\MP4_islamicquotes",
+      "sql": "C:\\Users\\combo\\Desktop\\ffmpeg\\database\\islamicquotes.sqlite"
+    },
+    "cfgIndex": 7
+  }
+]
