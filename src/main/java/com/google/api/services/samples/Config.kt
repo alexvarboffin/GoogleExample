@@ -21,12 +21,12 @@ public object Config {
 
 
         CFG("userepmmmmm", "aa03022022"),  //alex muslim
-        CFG("userepmmmmz", "iballwasrawt88"),  //alex christ
+        CFG("userepmmmmz", "iballwasrawt88"),  //alex christ  """ Crash for cash
         //opt
 
 
-        CFG("danilabobrov82", "iballwasrawt88"),  //danilabobrov82@gmail.com = Likee
-        CFG("danilabobrov82_2", "iballwasrawt88"),  //danilabobrov82@gmail.com = Inspiring Islamic Quotes
+        CFG("danilabobrov82", "iballwasrawt88"),  //danilabobrov82@gmail.com = Likee """"" Аудиосказки для детей
+        CFG("danilabobrov82_2", "iballwasrawt88"),  //danilabobrov82@gmail.com = Inspiring Islamic Quotes "" Чёткий Степашка
 
         CFG("userabbcc", "tiktoktube-281514"),
     )

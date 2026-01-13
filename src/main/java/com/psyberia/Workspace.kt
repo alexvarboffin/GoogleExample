@@ -4,9 +4,9 @@ import java.io.File
 
 object Workspace {
 
-    const val PROJECT_CHRISTIAN_QUOTES = "D:\\walhalla\\QUOTES\\002_ChristianQuotes\\ChristianQuotes"
-    const val PROJECT_CHRISTIAN_QUOTES_EN = "D:\\walhalla\\QUOTES\\002_ChristianQuotes\\ChristianQuotesEn"
-    const val PROJECT_ISLAMICQUOTES: String = "D:\\walhalla\\QUOTES\\01_QuotesPhrases\\islamicquotes"
+    const val PROJECT_CHRISTIAN_QUOTES = "G:\\source\\walhalla\\QUOTES\\002_ChristianQuotes\\ChristianQuotes"
+    const val PROJECT_CHRISTIAN_QUOTES_EN = "G:\\source\\walhalla\\QUOTES\\002_ChristianQuotes\\ChristianQuotesEn"
+    const val PROJECT_ISLAMICQUOTES: String = "G:\\source\\walhalla\\QUOTES\\01_QuotesPhrases\\islamicquotes"
 
 //    sealed class Database {
 //        object M

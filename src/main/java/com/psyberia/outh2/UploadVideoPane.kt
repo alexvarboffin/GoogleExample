@@ -184,13 +184,17 @@ class UploadVideoPane(private val scrapper: ChannelScrapperImpl) : BorderPane() 
             val videoInsert = youtube.videos().insert("snippet,statistics,status", videoMetadata, mediaContent)
             send(videoInsert, file, cfg)
         } catch (e: GoogleJsonResponseException) {
-            println("Throwable: " + e.message)
-            e.printStackTrace()
+//            println("Throwable: 0 " + (e).statusCode)
+//            println("Throwable: 0 " + (e))
+            //println(e.details.errors.get(0))
+            println("@@@@@@@@@@@@@"+e.details.message+"@@@@ ${cfg.toString()}")
+            //println(e.content)
+            //e.printStackTrace()
         } catch (e: Exception) {
-            println("Throwable: " + e.message)
+            println("Throwable: 1 " + e.message)
             e.printStackTrace()
         } catch (t: Throwable) {
-            println("Throwable: " + t.message)
+            println("Throwable: 2 " + t.message)
             t.printStackTrace()
         }
     }
